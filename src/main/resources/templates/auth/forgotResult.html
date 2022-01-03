@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link rel="stylesheet" href="/css/login.css">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <style>
+    .error {
+      color: red;
+    }
+  </style>
+  <!------ Include the above in your HEAD tag ---------->
+</head>
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img style="width: 50px; border-radius: 26px;    margin-top: -35px;" src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg" id="icon" alt="User Icon" />
+      <!--      <p class="text-danger text-center" th:if="${error == false}">Đăng nhập không thành công</p>-->
+    </div>
+
+   <div th:if="${check == true}">
+     <div >
+       <p> back to the next page Login <span id="demo">5</span></p>
+       <span  style="color: blue" >A new password has been sent to your email, please check your inbox and re-entering login!</span>
+     </div>
+
+     <!-- Login Form -->
+
+     <!-- Remind Passowrd -->
+     <div id="formFooter">
+       <a class="underlineHover" th:href="@{/}">Login</a>
+     </div>
+   </div>
+
+    <div th:if="${check == false}">
+      <div>
+        <p> back to the next page Forgot Pass word <span id="demo">5</span></p>
+     <span style="color: blue" >Your request failed, please try again</span>
+      </div>
+
+      <!-- Login Form -->
+
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" th:href="@{/api/auth/forgotPassword}">ForgotPassword</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  var check = [[${check}]];
+  var countDownDate = new Date().getTime() + 10000;
+
+  // Update the count down every 1 second
+  var x = setInterval(function () {
+
+    // Get today's date and time
+    var now = new Date().getTime();
+
+    // Find the distance between now and the count down date
+    var distance = countDownDate - now;
+
+    var seconds = Math.floor(distance / 1000);
+
+    // Display the result in the element with id="demo"
+    document.getElementById("demo").innerHTML = seconds + " s";
+
+    // If the count down is finished, write some text
+    if (distance < 0 && check == true) {
+      clearInterval(x);
+      window.location.replace("/");
+    }
+
+    if (distance < 0 && check == false) {
+      clearInterval(x);
+      window.location.replace("/api/auth/forgotPassword");
+    }
+  }, 200);
+</script>
+
+</html>

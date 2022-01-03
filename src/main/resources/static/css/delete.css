@@ -1,0 +1,35 @@
+body {
+    background: #E2E5EE
+}
+
+.close:focus {
+    outline: none
+}
+
+/*.container.justify-content-center {*/
+/*    margin-top: 200px*/
+/*}*/
+
+.modal-header {
+    border: none
+}
+
+.modal-footer {
+    border: none
+}
+
+.btn-danger {
+    background: #DD2750;
+    border: 1px solid #C43352;
+    width: 73px;
+    height: 32px;
+    margin: auto;
+}
+
+.btn-light {
+    border: 1px solid #E7E7E9
+}
+
+.btn:focus {
+    box-shadow: none
+}

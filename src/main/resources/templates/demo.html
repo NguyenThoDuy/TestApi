@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="layout::layout(
+            ~{::#content}
+      )">
+<th:block id="content">
+    <div class="container justify-content-center ">
+        <div class="dropdown"> <button class="btn btn-outline-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false"> <span>Show by quantity</span></i> </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a th:href="@{'/student/page=1' + '&size=' + 10 + 'andsortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">10</a>
+                </li>
+                <li> <a th:href="@{'/student/page=1'+ '&size=' + 25 + 'andsortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">25</a>
+                </li>
+                <li><a th:href="@{'/student/page=1'+ '&size=' + 50 + 'andsortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">50</a>
+                </li>
+                <li><a th:href="@{'/student/page=1'+ '&size=' + 100 + 'andsortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">100</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div>
+        <!--        list-->
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#&nbsp;&nbsp
+                    <a th:href="@{'/student/page=' + ${currentPage} + '&size='+ ${size} +'andsortField=id&sortDir=asc'}"><i class="fas fa-sort-up"></i></a>
+                    <a th:href="@{'/student/page=' + ${currentPage} + '&size='+ ${size} +'andsortField=id&sortDir=desc'}"><i class="fas fa-sort-down"></i></a>
+                </th>
+                <th scope="col">name&nbsp;&nbsp
+                    <a th:href="@{'/student/page=' + ${currentPage} + '&size='+ ${size} +'andsortField=fullname&sortDir=asc'}"> <i class="fas fa-sort-up"></i></a>
+                    <a th:href="@{'/student/page=' + ${currentPage} + '&size='+ ${size} +'andsortField=fullname&sortDir=desc'}"><i class="fas fa-sort-down"></i></a>
+                </th>
+                <th scope="col">gender</th>
+                <th scope="col">date</th>
+                <th scope="col">address</th>
+                <th scope="col">email</th>
+                <th scope="col">action</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="student : ${students}">
+                <th scope="row" th:text="${student.getId()}">1</th>
+                <td th:text="${student.getFullname()}">Mark</td>
+                <td th:text="${student.getGender()}">Mark</td>
+                <td th:text="${student.getBirthday()}">Mark</td>
+                <td th:text="${student.getAddress()}">Mark</td>
+                <td th:text="${student.getEmail()}">Mark</td>
+                <td>
+                    <!--                        delete-->
+                    <button style="font-size: 12px;" type="button" class="btn btn-danger btn-lg" data-toggle="modal"
+                            data-target="#exampleModal" th:href="@{/student/delete/{id} (id=${student.id})}">DELETE
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <div class="container d-flex pl-0"><img src="https://imgur.com/Kh1gwTq.png">
+                                        <h5 class="modal-title ml-2" id="exampleModalLabel">Delete the Student?</h5>
+                                    </div>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="text-muted">If you delete the Student will be gone forever. Are you sure
+                                        you want to proceed?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light" dazta-dismiss="modal">Cancel</button>
+                                    <a class="btn btn-danger btn"
+                                       th:href="@{/student/delete/{id} (id=${student.id})}">Delete</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a th:href="@{/student/findById/{id} (id=${student.id})}" style="font-size: 12px; background-color: #0d6efd;" class="btn btn-danger btn-lg">EDIT</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <div class="pagination_rounded" style="margin-top: 0px; display: contents" th:if="${totalPages > 1}">
+            <ul>
+                <li><span th:text="'TotalItem :' + ${totalItems}">&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <li><a  th:if="${currentPage} > 1" th:href="@{'/student/page=1' + '&size=' + ${size} + 'andsortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="prev">
+                <i class="fa fa-angle-left" aria-hidden="true"></i> Head </a>
+                </li>
+
+                <li><a th:if="${currentPage} > 1 " th:href="@{'/student/page=' + ${currentPage -1} + '&size=' + ${size} + 'andsortField=' + ${sortField} + '&sortDir=' +${sortDir}}"
+                       class="prev"> <i class="fa fa-angle-left" aria-hidden="true"></i> Prev </a>
+                    <!--                            <a  th:unless="${currentPage < 1}"> class="prev"> <i class="fa fa-angle-left" aria-hidden="true"></i> Prev </a>-->
+                </li>
+
+                <li class="hidden-xs" th:each="i: ${#numbers.sequence(1, totalPages)}">
+                    <a th:if="${currentPage != i}"
+                       th:href="@{'/student/page=' + ${i}+ '&size=' + ${size} + 'andsortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" >[[${i}]]</a>
+                     <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+                </li>
+
+                <li>
+                    <a th:if="${currentPage < totalPages}"
+                       th:href="@{'/student/page=' + ${currentPage + 1}+ '&size=' + ${size} + 'andsortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="next"> Next <i
+                            class="fa fa-angle-right" aria-hidden="true"></i></a>
+                </li>
+
+                <li>
+                    <a th:if="${currentPage < totalPages}"
+                       th:href="@{'/student/page=' + ${totalPages}+ '&size='+ ${size} + 'andsortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" class="last"> Last <i
+                            class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+<!--    <script>-->
+<!--        $('#pageClick').on('click', function(event) {-->
+<!--            var url = $(this).attr('href');-->
+<!--            $.ajax({-->
+<!--                type: 'GET', //Sử dụng kiểu gửi dữ liệu POST-->
+<!--                url: url,-->
+<!--                contentType: "application/json",-->
+<!--                dataType: 'json',-->
+<!--                success: function (result) {-->
+<!--                    console.log(result);-->
+<!--                }-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
+</th:block>
+</html>

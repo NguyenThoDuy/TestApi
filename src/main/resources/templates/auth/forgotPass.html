@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link rel="stylesheet" href="/css/login.css">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <style>
+    .error {
+      color: red;
+    }
+  </style>
+  <!------ Include the above in your HEAD tag ---------->
+</head>
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img style="width: 50px; border-radius: 26px;    margin-top: -35px;" src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg" id="icon" alt="User Icon" />
+<!--      <p class="text-danger text-center" th:if="${error == false}">Đăng nhập không thành công</p>-->
+    </div>
+
+
+
+    <!-- Login Form -->
+    <form  method="post" th:action="@{/api/auth/forgotPassword}" th:object="${forgotPass}">
+      <input type="text"  id="login" class="fadeIn second" name="email" th:field="*{email}" placeholder="email">
+      <li  th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}" ></li>
+      <input type="submit" class="fadeIn fourth" value="Request New Pass">
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" th:href="@{/}">Login</a>
+    </div>
+
+  </div>
+</div>
+
+</html>

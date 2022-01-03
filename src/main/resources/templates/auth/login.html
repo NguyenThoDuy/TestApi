@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/login.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+
+        <!-- Icon -->
+        <div class="fadeIn first">
+            <img style="width: 50px; border-radius: 26px;    margin-top: -35px;" src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg" id="icon" alt="User Icon" />
+            <p class="text-danger text-center" th:if="${error == false}">Đăng nhập không thành công</p>
+        </div>
+
+
+
+        <!-- Login Form -->
+        <form name="form1" action="#" onsubmit="required()"  method="post" th:action="@{/api/auth/login}"  th:object="${request}" >
+            <input type="text"  id="login" class="fadeIn second" name="email" th:field="*{email}" placeholder="email">
+<!--            <li id="myDIV" style="color: red; ></li>-->
+            <!--<input type="password"  id="password" class="fadeIn third" name="password" th:field="*{password}" placeholder="password">-->
+            <input type="password" id="password" class="fadeIn third" name="password" th:field="*{password}" placeholder="password">
+
+            <input type="submit" class="fadeIn fourth" value="Log In">
+        </form>
+
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            <a class="underlineHover" th:href="@{/api/auth/forgotPassword}">Forgot Password?</a>
+        </div>
+
+    </div>
+<!--    <script>-->
+<!--        function required()-->
+<!--        {-->
+<!--           var email = document.getElementById(login).value;-->
+<!--           if(email == ""){-->
+<!--               document.getElementById("myDIV").innerHTML = "Email can't null";-->
+<!--           }-->
+<!--        }-->
+
+<!--    </script>-->
+</div>
+
+</html>
